@@ -28,6 +28,7 @@ namespace AssemblyCSharp
 			if (CurrentAction != null) {
 				CurrentAction.Update(player);
 				if (CurrentAction.IsDone) {
+					CurrentAction.Stop(player);
 					CurrentAction = null;
 				}
 			}

@@ -14,6 +14,10 @@ namespace AssemblyCSharp
 		{
 		}
 
+		public virtual void Stop(PlayerController player)
+		{
+		}
+
 		public void Update(PlayerController player)
 		{
 			TimeRemaining -= Time.deltaTime;

@@ -4,6 +4,8 @@ using AssemblyCSharp;
 
 public class PlayerController : MonoBehaviour {
 
+	public GameObject NimmLightFx { get { return mNimmLightFx; } }
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -32,15 +34,22 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log("Quickstep pressed");
 			var action = new QuickstepAction();
 			mActionQueue.Enqueue(action);
+		} 
+		if (Input.GetButtonDown("NimmLight")) {
+			Debug.Log("NimmLight pressed");
+			var action = new NimmLightAction();
+			mActionQueue.Enqueue(action);
 		}
 		mActionQueue.Update(this);
 	}
 
 	[SerializeField]
-	float mSpeedFactor = DEFAULT_SPEED_FACTOR;
-	const float DEFAULT_SPEED_FACTOR = 0.1f;
+	private float mSpeedFactor = DEFAULT_SPEED_FACTOR;
+	private const float DEFAULT_SPEED_FACTOR = 0.1f;
 
+	[SerializeField]
+	private GameObject mNimmLightFx;
 
-	ActionQueue mActionQueue = new ActionQueue();
+	private ActionQueue mActionQueue = new ActionQueue();
 
 }
