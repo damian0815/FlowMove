@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void UpdateActions() {
+
 		if (Input.GetButtonDown("Quickstep")) {
 			Debug.Log("Quickstep pressed");
 			var action = new QuickstepAction();

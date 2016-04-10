@@ -28,12 +28,15 @@ namespace AssemblyCSharp
 		public override Vector2 Movement 
 		{ 
 			get { 
+				var timeFactor = 1 - TimeRemaining/DURATION;
+				timeFactor = timeFactor*timeFactor*timeFactor*timeFactor;
+				timeFactor = 1 - timeFactor;
 				return mStartMovementInput * (1 + SPEED_MULTIPLIER * TimeRemaining/DURATION); 
 			} 
 		}
 
 		private const float DURATION = 0.3f;
-		private const float SPEED_MULTIPLIER = 10.0f;
+		private const float SPEED_MULTIPLIER = 5.0f;
 
 		private Vector2 mStartMovementInput;
 
