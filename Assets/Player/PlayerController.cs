@@ -5,6 +5,7 @@ using AssemblyCSharp;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject NimmLightFx { get { return mNimmLightFx; } }
+	public GameObject Level { get { return mLevel; } }
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +47,9 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private float mSpeedFactor = DEFAULT_SPEED_FACTOR;
 	private const float DEFAULT_SPEED_FACTOR = 0.1f;
+
+	[SerializeField]
+	private GameObject mLevel;
 
 	[SerializeField]
 	private GameObject mNimmLightFx;

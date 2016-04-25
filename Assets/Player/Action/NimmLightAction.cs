@@ -32,9 +32,14 @@ namespace AssemblyCSharp
 
 		protected override void Apply(PlayerController player)
 		{
-			float scale = Map(TimeRemaining, DURATION, 0, mFxStartScale, MIN_FX_SCALE);
-			scale *= scale;
+			float timePct = 1.0f - (TimeRemaining / DURATION);
+			float startScale = mFxStartScale;
+			float endScale = MIN_FX_SCALE;
+			float scale = mFxStartScale + /*(float)Math.Sqrt(timePct)*/timePct*timePct * (endScale - startScale);
 			mNimmFx.transform.localScale = new Vector3(scale,scale,scale);
+
+			var levelController = (LevelController)player.Level.GetComponent(typeof(LevelController));
+			levelController.DoNimm(player.transform.position);
 		}
 
 
