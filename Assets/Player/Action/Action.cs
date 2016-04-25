@@ -3,37 +3,37 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
-	public abstract class Action
+	public abstract class Action : ScriptableObject
 	{
-		public Action(float mDuration)
+		public PlayerController Player { get; set; }
+
+		public virtual void Begin() 
 		{
 			TimeRemaining = mDuration;
 		}
 
-		public virtual void Start(PlayerController player)
+		public virtual void Stop()
 		{
 		}
 
-		public virtual void Stop(PlayerController player)
-		{
-		}
-
-		public void Update(PlayerController player)
+		public void Update()
 		{
 			TimeRemaining -= Time.deltaTime;
-			Apply(player);
+			Apply();
 		}
 
 		protected float TimeRemaining{ get; private set; }
 
-		protected abstract void Apply(PlayerController player);
+		protected abstract void Apply();
 
 		public virtual bool BlocksMovementInput { get { return false; } }
 		public virtual Vector2 Movement { get { return new Vector2(0,0); } }
 
 		public bool IsDone { get { return TimeRemaining <= 0; } }
 
-	
+		[SerializeField]
+		protected float mDuration = 1.0f;
+
 	}
 }
 

@@ -26,9 +26,9 @@ namespace AssemblyCSharp
 		private void UpdateCurrentAction(PlayerController player)
 		{
 			if (CurrentAction != null) {
-				CurrentAction.Update(player);
+				CurrentAction.Update();
 				if (CurrentAction.IsDone) {
-					CurrentAction.Stop(player);
+					CurrentAction.Stop();
 					CurrentAction = null;
 				}
 			}
@@ -38,7 +38,7 @@ namespace AssemblyCSharp
 		{
 			if (CurrentAction == null && mQueue.Any()) {
 				CurrentAction = mQueue.Dequeue();
-				CurrentAction.Start(player);
+				CurrentAction.Begin();
 			}
 		}
 

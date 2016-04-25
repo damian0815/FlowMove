@@ -3,16 +3,13 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
+	[CreateAssetMenu(fileName = "QuickstepAction", menuName = "Actions/Quickstep", order = 1)]
 	public class QuickstepAction : Action
 	{
-		public QuickstepAction ()
-			: base(DURATION)
+		public override void Begin()
 		{
-		}
-
-		public override void Start(PlayerController player)
-		{
-			mStartMovementInput = player.MovementInput;
+			base.Begin();
+			mStartMovementInput = Player.MovementInput;
 			if (mStartMovementInput.magnitude > 0) {
 				mStartMovementInput.Normalize();
 			} else {
@@ -20,7 +17,7 @@ namespace AssemblyCSharp
 			}
 		}
 
-		protected override void Apply(PlayerController player)
+		protected override void Apply()
 		{
 		}
 
@@ -28,15 +25,15 @@ namespace AssemblyCSharp
 		public override Vector2 Movement 
 		{ 
 			get { 
-				var timeFactor = 1 - TimeRemaining/DURATION;
+				var timeFactor = 1 - TimeRemaining/mDuration;
 				timeFactor = timeFactor*timeFactor*timeFactor*timeFactor;
 				timeFactor = 1 - timeFactor;
-				return mStartMovementInput * (1 + SPEED_MULTIPLIER * TimeRemaining/DURATION); 
+				return mStartMovementInput * (1 + mSpeedMultiplier * TimeRemaining/mDuration); 
 			} 
 		}
 
-		private const float DURATION = 0.3f;
-		private const float SPEED_MULTIPLIER = 5.0f;
+		[SerializeField]
+		private float mSpeedMultiplier = 5.0f;
 
 		private Vector2 mStartMovementInput;
 

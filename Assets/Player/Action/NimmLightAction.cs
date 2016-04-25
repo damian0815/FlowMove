@@ -3,24 +3,20 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
+	[CreateAssetMenu(fileName = "NimmLightAction", menuName = "Actions/NimmLight", order = 1)]
 	public class NimmLightAction: Action
 	{
-		public NimmLightAction ()
-			: base(DURATION)
+		public override void Begin()
 		{
-		}
-
-		public override void Start(PlayerController player)
-		{
-			//mNimmFx = (GameObject)GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			mNimmFx = GameObject.Instantiate(player.NimmLightFx);
-			mNimmFx.transform.parent = player.gameObject.transform;
+			base.Begin();
+			mNimmFx = GameObject.Instantiate(mNimmFx);
+			mNimmFx.transform.parent = Player.gameObject.transform;
 			mNimmFx.transform.localPosition = new Vector3(0,0,0);
 			//mNimmFx.transform.localScale = new Vector3(MAX_FX_SCALE, MAX_FX_SCALE, MAX_FX_SCALE);
 			mFxStartScale = mNimmFx.transform.localScale.x;
 		}
 
-		public override void Stop(PlayerController player)
+		public override void Stop()
 		{
 			GameObject.Destroy(mNimmFx);
 		}
@@ -30,25 +26,25 @@ namespace AssemblyCSharp
 			return (outMax-outMin) * (x-xMin)/(xMax-xMin);
 		}
 
-		protected override void Apply(PlayerController player)
+		protected override void Apply()
 		{
-			float timePct = 1.0f - (TimeRemaining / DURATION);
+			float timePct = 1.0f - (TimeRemaining / mDuration);
 			float startScale = mFxStartScale;
 			float endScale = MIN_FX_SCALE;
 			float scale = mFxStartScale + /*(float)Math.Sqrt(timePct)*/timePct*timePct * (endScale - startScale);
 			mNimmFx.transform.localScale = new Vector3(scale,scale,scale);
 
-			var levelController = (LevelController)player.Level.GetComponent(typeof(LevelController));
-			levelController.DoNimm(player.transform.position);
+			var levelController = (LevelController)Player.Level.GetComponent(typeof(LevelController));
+			levelController.DoNimm(Player.transform.position);
 		}
 
 
 		public override bool BlocksMovementInput { get { return true; } }
 
-		const float DURATION = 0.3f;
 		float mFxStartScale;
 		const float MIN_FX_SCALE = 0.1f;
 
+		[SerializeField]
 		GameObject mNimmFx;
 	}
 }

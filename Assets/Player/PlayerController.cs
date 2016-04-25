@@ -4,7 +4,6 @@ using AssemblyCSharp;
 
 public class PlayerController : MonoBehaviour {
 
-	public GameObject NimmLightFx { get { return mNimmLightFx; } }
 	public GameObject Level { get { return mLevel; } }
 
 	// Use this for initialization
@@ -33,12 +32,14 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetButtonDown("Quickstep")) {
 			Debug.Log("Quickstep pressed");
-			var action = new QuickstepAction();
+			var action = (Action)ScriptableObject.Instantiate(mQuickstepActionPrefab);
+			action.Player = this;
 			mActionQueue.Enqueue(action);
 		} 
 		if (Input.GetButtonDown("NimmLight")) {
 			Debug.Log("NimmLight pressed");
-			var action = new NimmLightAction();
+			var action = (Action)ScriptableObject.Instantiate(mNimmLightActionPrefab);
+			action.Player = this;
 			mActionQueue.Enqueue(action);
 		}
 		mActionQueue.Update(this);
@@ -51,9 +52,12 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private GameObject mLevel;
 
-	[SerializeField]
-	private GameObject mNimmLightFx;
-
 	private ActionQueue mActionQueue = new ActionQueue();
+
+	[SerializeField]
+	private ScriptableObject mNimmLightActionPrefab;
+
+	[SerializeField]
+	private ScriptableObject mQuickstepActionPrefab;
 
 }
