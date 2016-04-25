@@ -32,9 +32,14 @@ public class LevelController : MonoBehaviour {
 	}
 
 
-	public void DoNimm(Vector2 position)
+	private static bool NimmInRange(NimmableController nimmable, Vector2 p, float range)
 	{
-		var nimmable = NimmableControllers.Where(n => n.PointIsInside(position)).FirstOrDefault();
+		return nimmable.PointIsInside(p);
+	}
+
+	public void DoNimm(Vector2 position, float range)
+	{
+		var nimmable = NimmableControllers.Where(n => NimmInRange(n, position, range)).FirstOrDefault();
 		if (nimmable != null) {
 			mNimmables.Remove(nimmable.gameObject);
 			GameObject.Destroy(nimmable.gameObject);

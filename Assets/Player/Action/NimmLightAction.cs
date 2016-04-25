@@ -35,7 +35,7 @@ namespace AssemblyCSharp
 			mNimmFx.transform.localScale = new Vector3(scale,scale,scale);
 
 			var levelController = (LevelController)Player.Level.GetComponent(typeof(LevelController));
-			levelController.DoNimm(Player.transform.position);
+			levelController.DoNimm(Player.transform.position, mRange);
 		}
 
 
@@ -46,6 +46,10 @@ namespace AssemblyCSharp
 
 		[SerializeField]
 		GameObject mNimmFx;
+
+		[SerializeField]
+		float mRange;
 	}
+
 }
 
