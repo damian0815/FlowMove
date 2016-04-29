@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using AssemblyCSharp;
 
 public class LevelController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		for (int i=0; i<20; i++) {
+		for (int i=0; i<mInitialNumNimmables; i++) {
 			AddNimmable();
 		}
 	}
@@ -34,7 +35,7 @@ public class LevelController : MonoBehaviour {
 
 	private static bool NimmInRange(NimmableController nimmable, Vector2 p, float range)
 	{
-		return nimmable.PointIsInside(p);
+		return Geometry.Intersects(new Geometry.Circle(p, range), nimmable.Frame);
 	}
 
 	public void DoNimm(Vector2 position, float range)
@@ -54,6 +55,9 @@ public class LevelController : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject mNimmablePrefab;
+
+	[SerializeField]
+	private float mInitialNumNimmables;
 
 	private List<GameObject> mNimmables = new List<GameObject>();
 }

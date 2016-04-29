@@ -48,7 +48,7 @@ namespace AssemblyCSharp
 		GameObject mNimmFx;
 
 		[SerializeField]
-		float mRange;
+		float mRange = 1;
 	}
 
 }
